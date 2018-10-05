@@ -1,0 +1,102 @@
+consumes:
+- application/json
+- application/xml
+- application/gob
+- application/x-gob
+definitions:
+  GoaExampleDate:
+    description: A date in lgbk (default view)
+    example:
+      body: Nisi suscipit quos in eligendi.
+      id: 9.049071804870021e+18
+      title: Maiores rerum praesentium nihil iusto.
+    properties:
+      body:
+        description: body of date
+        example: Nisi suscipit quos in eligendi.
+        type: string
+      id:
+        description: Unique bottle ID
+        example: 9.049071804870021e+18
+        format: int64
+        type: integer
+      title:
+        description: title of date
+        example: Maiores rerum praesentium nihil iusto.
+        type: string
+    required:
+    - id
+    - title
+    - body
+    title: 'Mediatype identifier: application/vnd.goa.example.date+json; view=default'
+    type: object
+host: localhost:8082
+info:
+  description: A journey's logbook named your life.
+  title: lgbk
+  version: ""
+paths:
+  /dates/:
+    get:
+      description: Get all dates
+      operationId: date#index
+      produces:
+      - application/vnd.goa.example.date+json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/GoaExampleDate'
+        "404":
+          description: Not Found
+      schemes:
+      - http
+      security:
+      - basic_auth: []
+      summary: index date
+      tags:
+      - date
+  /dates/{dateID}:
+    get:
+      description: Get date by id
+      operationId: date#show
+      parameters:
+      - description: Date ID
+        in: path
+        name: dateID
+        required: true
+        type: integer
+      produces:
+      - application/vnd.goa.example.date+json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/GoaExampleDate'
+        "404":
+          description: Not Found
+      schemes:
+      - http
+      security:
+      - basic_auth: []
+      summary: show date
+      tags:
+      - date
+produces:
+- application/json
+- application/xml
+- application/gob
+- application/x-gob
+responses:
+  NotFound:
+    description: Not Found
+  OK:
+    description: OK
+    schema:
+      $ref: '#/definitions/GoaExampleDate'
+schemes:
+- http
+securityDefinitions:
+  basic_auth:
+    type: basic
+swagger: "2.0"
